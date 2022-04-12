@@ -1,0 +1,33 @@
+package SQLiteCon;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class java {
+
+    public static void main(String[] args) {
+
+        String jdbcUrl = "jdbc:sqlite:C:\SQlite\sqlite-tools-win32-x86-3380200\\Moviesdb.db";
+        try{
+            Connection connection = DriverMangaer.getConnection(jdbcUrl);
+            String sql = "select * from MOVIES";
+
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+
+            while(result.next()) {
+                String Actor= result.getString("Actor");
+                String Actress= result.getString("Actress");
+                String Director= result.getString("Director");
+
+                System.out.println(Actor + "|" + Actress + "|" + Director);
+                
+            }            
+
+        } catch (SQLException e) {
+            System.out.println("Error connecting to the SQLite database");
+            e.printStackTrace();
+        }
+    }
+}
